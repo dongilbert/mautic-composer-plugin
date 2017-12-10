@@ -1,5 +1,5 @@
 {
-    "name": "dongilbert/mautic-composer-installer-plugin",
+    "name": "dongilbert/mautic-composer-plugin",
     "type": "composer-plugin",
     "license": "MIT",
     "autoload": {
