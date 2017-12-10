@@ -18,11 +18,11 @@ class Installer extends LibraryInstaller
         switch (true) {
             case strpos($packageType, 'mautic-theme') === 0:
                 $this->vendorDir = 'themes/vendor';
-                return 'themes/'.$packageName;
+                return 'themes/'.basename($packageName);
                 break;
             case strpos($packageType, 'mautic/plugin-') === 0:
                 $this->vendorDir = 'plugins/vendor';
-                return 'plugins/'.$packageName;
+                return 'plugins/'.basename($packageName);
                 break;
             default:
                 throw new \InvalidArgumentException(
