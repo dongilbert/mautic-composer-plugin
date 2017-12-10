@@ -13,17 +13,13 @@ class Installer extends LibraryInstaller
     public function getInstallPath(PackageInterface $package)
     {
         $packageType = $package->getType();
-        $packageName = $package->getPrettyName();
+        $packageName = $this->toCamelCase($package->getPrettyName());
 
-        switch (true) {
-            case strpos($packageType, 'mautic-theme') === 0:
-                $this->vendorDir = 'themes/vendor';
-                return 'themes/'.basename($packageName);
-                break;
-            case strpos($packageType, 'mautic/plugin-') === 0:
-                $this->vendorDir = 'plugins/vendor';
-                return 'plugins/'.basename($packageName);
-                break;
+        switch ($packageType) {
+            case 'mautic-theme':
+                return 'themes/'.$packageName;
+            case 'mautic-plugin':
+                return 'plugins/'.$packageName;
             default:
                 throw new \InvalidArgumentException(
                     'Unable to install. '
@@ -43,5 +39,10 @@ class Installer extends LibraryInstaller
         ];
 
         return in_array($packageType, $supportedTypes);
+    }
+
+    private function toCamelCase($packageName)
+    {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', basename($packageName))));
     }
 }
